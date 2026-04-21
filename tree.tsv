@@ -1,0 +1,33 @@
+id	parentId	type	text	options	target	signal
+START	null	start	Good evening. Let's reflect on your day.			
+A1_OPEN	START	question	How did your day feel overall?	Smooth|Productive|Stressful|Out of control		
+A1_D1	A1_OPEN	decision		answer=Smooth|Productive:A1_Q1_HIGH;answer=Stressful|Out of control:A1_Q1_LOW		
+A1_Q1_HIGH	A1_D1	question	When things went well, what made it happen?	My effort|Team support|Luck|Adaptation		axis1:internal
+A1_Q1_LOW	A1_D1	question	When things got difficult, what was your reaction?	Tried to control what I could|Waited for help|Felt stuck|Blamed situation		axis1:external
+A1_Q2	A1_Q1_HIGH	question	What best describes your role in outcomes today?	I shaped them|I adapted|Others decided|It was luck		axis1:internal
+A1_Q2B	A1_Q1_LOW	question	What best describes your role in outcomes today?	I shaped them|I adapted|Others decided|It was luck		axis1:external
+A1_R_INT	A1_Q2	reflection	You recognized your role in shaping outcomes. That’s agency — even small choices matter.			axis1:internal
+A1_R_EXT	A1_Q2B	reflection	It felt like things were outside your control. But even then, there were moments where your choices mattered.			axis1:external
+BRIDGE_1_2	A1_R_INT	bridge	Now let’s shift from how you handled things to what you contributed.		A2_OPEN	
+BRIDGE_1_2B	A1_R_EXT	bridge	Now let’s shift from how you handled things to what you contributed.		A2_OPEN	
+
+A2_OPEN	BRIDGE_1_2	question	Think about your interactions today. What stands out?	Helped someone|Shared knowledge|Did my work|Felt others lacked effort		
+A2_D1	A2_OPEN	decision		answer=Helped someone|Shared knowledge:A2_Q_HIGH;answer=Did my work|Felt others lacked effort:A2_Q_LOW		
+A2_Q_HIGH	A2_D1	question	How did you approach your work today?	Add value|Support team|Finish tasks|Wait for direction		axis2:contribution
+A2_Q_LOW	A2_D1	question	How did you feel about your work today?	Focused on value|Supported team|Wanted recognition|Felt unappreciated		axis2:entitlement
+A2_R_CON	A2_Q_HIGH	reflection	You leaned toward contribution. Even small efforts to help others build trust over time.			axis2:contribution
+A2_R_ENT	A2_Q_LOW	reflection	It felt like you deserved more today. That’s valid — but focusing on contribution often shifts outcomes.			axis2:entitlement
+BRIDGE_2_3	A2_R_CON	bridge	Now let’s expand the lens beyond you.		A3_OPEN	
+BRIDGE_2_3B	A2_R_ENT	bridge	Now let’s expand the lens beyond you.		A3_OPEN	
+
+A3_OPEN	BRIDGE_2_3	question	Who did you think about most today?	Myself|My tasks|My team|Customer		
+A3_D1	A3_OPEN	decision		answer=Myself|My tasks:A3_Q_SELF;answer=My team|Customer:A3_Q_OTHERS		
+A3_Q_SELF	A3_D1	question	What was your main focus?	My stress|My performance|Team impact|Customer outcome		axis3:self
+A3_Q_OTHERS	A3_D1	question	What gave today meaning?	My work|Meeting goals|Helping others|Making impact		axis3:others
+A3_R_SELF	A3_Q_SELF	reflection	Your focus stayed close to your experience. Expanding your view can reduce pressure and bring clarity.			axis3:self
+A3_R_OTH	A3_Q_OTHERS	reflection	You considered others and impact. That wider perspective often brings deeper meaning to work.			axis3:others
+
+SUMMARY	A3_R_SELF	summary	Today you showed {axis1.dominant} control, leaned toward {axis2.dominant}, and focused on {axis3.dominant}. Small shifts tomorrow can change your experience.		
+SUMMARY2	A3_R_OTH	summary	Today you showed {axis1.dominant} control, leaned toward {axis2.dominant}, and focused on {axis3.dominant}. Small shifts tomorrow can change your experience.		
+END	SUMMARY	end	See you tomorrow.		
+END2	SUMMARY2	end	See you tomorrow.		
